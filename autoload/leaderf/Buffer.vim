@@ -18,7 +18,7 @@ function! leaderf#Buffer#Maps()
     nnoremap <buffer> <silent> <CR>          :exec g:Lf_py "bufExplManager.accept()"<CR>
     nnoremap <buffer> <silent> o             :exec g:Lf_py "bufExplManager.accept()"<CR>
     nnoremap <buffer> <silent> <2-LeftMouse> :exec g:Lf_py "bufExplManager.accept()"<CR>
-    nnoremap <buffer> <silent> x             :exec g:Lf_py "bufExplManager.accept('h')"<CR>
+    nnoremap <buffer> <silent> s             :exec g:Lf_py "bufExplManager.accept('h')"<CR>
     nnoremap <buffer> <silent> v             :exec g:Lf_py "bufExplManager.accept('v')"<CR>
     nnoremap <buffer> <silent> t             :exec g:Lf_py "bufExplManager.accept('t')"<CR>
     nnoremap <buffer> <silent> q             :exec g:Lf_py "bufExplManager.quit()"<CR>
@@ -115,7 +115,7 @@ function! leaderf#Buffer#NormalModeFilter(winid, key) abort
         exec g:Lf_py "bufExplManager.input()"
     elseif key ==# "o" || key ==? "<CR>" || key ==? "<2-LeftMouse>"
         exec g:Lf_py "bufExplManager.accept()"
-    elseif key ==# "x"
+    elseif key ==# "s"
         exec g:Lf_py "bufExplManager.accept('h')"
     elseif key ==# "v"
         exec g:Lf_py "bufExplManager.accept('v')"
