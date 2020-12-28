@@ -27,7 +27,7 @@ function! leaderf#File#Maps()
     nnoremap <buffer> <silent> <Tab>         :exec g:Lf_py "fileExplManager.input()"<CR>
     nnoremap <buffer> <silent> <F1>          :exec g:Lf_py "fileExplManager.toggleHelp()"<CR>
     nnoremap <buffer> <silent> <F5>          :exec g:Lf_py "fileExplManager.refresh()"<CR>
-    nnoremap <buffer> <silent> <Space>       :exec g:Lf_py "fileExplManager.addSelections()"<CR>
+    nnoremap <buffer> <silent> <Space>       :exec g:Lf_py "fileExplManager.addSelections()"<CR><bar>:normal j<CR>
     nnoremap <buffer> <silent> a             :exec g:Lf_py "fileExplManager.selectAll()"<CR>
     nnoremap <buffer> <silent> c             :exec g:Lf_py "fileExplManager.clearSelections()"<CR>
     nnoremap <buffer> <silent> p             :exec g:Lf_py "fileExplManager._previewResult(True)"<CR>
