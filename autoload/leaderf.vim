@@ -67,7 +67,7 @@ function! s:InitDict(var, dict)
 endfunction
 
 call s:InitVar('g:Lf_WindowHeight', '0.5')
-call s:InitVar('g:Lf_TabpagePosition', 2)
+call s:InitVar('g:Lf_TabpagePosition', 3)
 call s:InitVar('g:Lf_ShowRelativePath', 1)
 call s:InitVar('g:Lf_DefaultMode', 'FullPath')
 call s:InitVar('g:Lf_CursorBlink', 1)
@@ -78,7 +78,7 @@ call s:InitVar('g:Lf_IndexTimeLimit', 120)
 call s:InitVar('g:Lf_FollowLinks', 0)
 call s:InitVar('g:Lf_DelimiterChar', ';')
 call s:InitVar('g:Lf_MruFileExclude', [])
-call s:InitVar('g:Lf_MruMaxFiles', 100)
+call s:InitVar('g:Lf_MruMaxFiles', 20)
 call s:InitVar('g:Lf_HighlightIndividual', 1)
 call s:InitVar('g:Lf_NumberOfHighlight', 100)
 call s:InitVar('g:Lf_WildIgnore', {
@@ -109,7 +109,7 @@ endif
 call s:InitVar('g:Lf_StlPalette', {})
 call s:InitVar('g:Lf_Ctags', 'ctags')
 call s:InitVar('g:Lf_PreviewCode', 0)
-call s:InitVar('g:Lf_UseVersionControlTool', 1)
+call s:InitVar('g:Lf_UseVersionControlTool', 0)
 call s:InitVar('g:Lf_RememberLastSearch', 0)
 call s:InitVar('g:Lf_UseCache', 1)
 call s:InitVar('g:Lf_RootMarkers', ['.git', '.hg', '.svn'])
@@ -179,6 +179,7 @@ let s:Lf_CommandMap = {
             \ '<F12>':         ['<F12>'],
             \ '<CR>':          ['<CR>', '<C-M>'],
             \ '<BS>':          ['<BS>'],
+            \ '<Space>':       ['<Space>'],
             \ '<Tab>':         ['<Tab>', '<C-I>'],
             \ '<Del>':         ['<Del>'],
             \ '<Esc>':         ['<Esc>'],
@@ -258,6 +259,7 @@ let g:Lf_KeyMap = {
             \ "\<F12>":         '<F12>',
             \ "\<CR>":          '<CR>',
             \ "\<BS>":          '<BS>',
+            \ "\<SPACE>":       '<SPACE>',
             \ "\<TAB>":         '<TAB>',
             \ "\<DEL>":         '<DEL>',
             \ "\<ESC>":         '<ESC>',
@@ -545,13 +547,13 @@ function! leaderf#NormalModeFilter(id, winid, key) abort
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.input()", a:id)
     elseif key ==# "o" || key ==? "<CR>" || key ==? "<2-LeftMouse>"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.accept()", a:id)
-    elseif key ==# "x"
+    elseif key ==# "s"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.accept('h')", a:id)
     elseif key ==# "v"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.accept('v')", a:id)
     elseif key ==# "t"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.accept('t')", a:id)
-    elseif key ==# "s"
+    elseif key ==# "<SPACE>"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.addSelections()", a:id)
     elseif key ==# "a"
         exec g:Lf_py printf("ctypes.cast(%d, ctypes.py_object).value.selectAll()", a:id)
