@@ -29,8 +29,8 @@ function! s:InitVar(var, value)
     endif
 endfunction
 
-call s:InitVar('g:Lf_ShortcutF', '<Leader>f')
-call s:InitVar('g:Lf_ShortcutB', '<Leader>b')
+call s:InitVar('g:Lf_ShortcutF', '')
+call s:InitVar('g:Lf_ShortcutB', '')
 call s:InitVar('g:Lf_WindowPosition', 'bottom')
 call s:InitVar('g:Lf_CacheDirectory', $HOME)
 call s:InitVar('g:Lf_MruBufnrs', [])
