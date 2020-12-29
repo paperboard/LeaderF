@@ -534,7 +534,7 @@ class LfInstance(object):
                     "pos":             "topleft",
                     "line":            line + 1,      # there is an input window above
                     "col":             col,
-                    "padding":         [0, 0, 0, 0],
+                    "border":          [1, 1, 1, 1],
                     "scrollbar":       0,
                     "mapping":         0,
                     "filter":          "leaderf#PopupFilter",
@@ -557,7 +557,7 @@ class LfInstance(object):
             if lfEval("get(g:, 'Lf_PopupShowFoldcolumn', 1)") == '0':
                 lfCmd("call win_execute(%d, 'setlocal foldcolumn=0')" % self._popup_winid)
             else:
-                lfCmd("call win_execute(%d, 'setlocal foldcolumn=1')" % self._popup_winid)
+                lfCmd("call win_execute(%d, 'setlocal foldcolumn=0')" % self._popup_winid)
             # lfCmd("call win_execute(%d, 'silent! setlocal signcolumn=no')" % self._popup_winid)
             lfCmd("call win_execute(%d, 'setlocal colorcolumn=')" % self._popup_winid)
             lfCmd("call win_execute(%d, 'setlocal wincolor=Lf_hl_popup_window')" % self._popup_winid)
@@ -1179,9 +1179,9 @@ class LfInstance(object):
         if self._win_pos == 'popup':
             if "--nowrap" not in self._arguments:
                 lfCmd("call leaderf#ResetPopupOptions(%d, 'minheight', %d)" % (self._popup_winid,
-                    min(self._popup_maxheight, self._actualLength(self._buffer_object[:self._popup_maxheight]))))
+                    max(self._popup_maxheight, self._actualLength(self._buffer_object[:self._popup_maxheight]))))
             else:
-                lfCmd("call leaderf#ResetPopupOptions(%d, 'minheight', %d)" % (self._popup_winid, min(self._popup_maxheight, buffer_len)))
+                lfCmd("call leaderf#ResetPopupOptions(%d, 'minheight', %d)" % (self._popup_winid, max(self._popup_maxheight, buffer_len)))
 
             if statusline_win:
                 expected_line = self._window_object.initialLine + self._window_object.height
@@ -1190,9 +1190,9 @@ class LfInstance(object):
         elif self._win_pos == 'floatwin':
             if buffer_len < self._popup_maxheight:
                 if "--nowrap" not in self._arguments:
-                    self._window_object.height = min(self._popup_maxheight, self._actualLength(self._buffer_object))
+                    self._window_object.height = max(self._popup_maxheight, self._actualLength(self._buffer_object))
                 else:
-                    self._window_object.height = buffer_len
+                    self._window_object.height = self._popup_maxheight
 
                 if statusline_win:
                     expected_line = self._window_object.initialLine + self._window_object.height
@@ -1225,9 +1225,9 @@ class LfInstance(object):
                 buffer_len = len(self._buffer_object)
                 if buffer_len < self._initial_win_height:
                     if "--nowrap" not in self._arguments:
-                        self._window_object.height = min(self._initial_win_height, self._actualLength(self._buffer_object))
+                        self._window_object.height = max(self._initial_win_height, self._actualLength(self._buffer_object))
                     else:
-                        self._window_object.height = buffer_len
+                        self._window_object.height = self._initial_win_height
                 elif self._window_object.height < self._initial_win_height:
                     self._window_object.height = self._initial_win_height
 

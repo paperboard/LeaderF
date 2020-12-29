@@ -18,7 +18,7 @@ if &background ==? 'dark'
     highlight def Lf_hl_popup_inputText guifg=#87ceeb guibg=#4d4d4d gui=NONE ctermfg=117 ctermbg=239 cterm=NONE
 
     " Lf_hl_popup_window is the wincolor of content window
-    highlight def Lf_hl_popup_window guifg=#eeeeee guibg=#404040 gui=NONE ctermfg=255 ctermbg=237 cterm=NONE
+    highlight def Lf_hl_popup_window guifg=#eeeeee guibg=#222222 gui=NONE ctermfg=255 ctermbg=237 cterm=NONE
 
     " Lf_hl_popup_blank is the wincolor of statusline window
     highlight def Lf_hl_popup_blank guifg=NONE guibg=#4b4e50 gui=NONE ctermbg=239 cterm=NONE
@@ -59,7 +59,7 @@ if &background ==? 'dark'
     highlight def link Lf_hl_helpCmd            Identifier
 
     " the color when select multiple lines
-    highlight def Lf_hl_selection guifg=Black guibg=#a5eb84 gui=NONE ctermfg=Black ctermbg=156 cterm=NONE
+    highlight def Lf_hl_selection guifg=Black guibg=SpringGreen gui=NONE ctermfg=Black ctermbg=156 cterm=NONE
 
     " the color of `Leaderf buffer`
     highlight def link Lf_hl_bufNumber          Constant
