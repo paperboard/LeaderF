@@ -2508,10 +2508,10 @@ class Manager(object):
                 self._index = 0 # search from beginning
                 if self._cli.pattern:
                     self._search(cur_content)
-            elif equal(cmd, '<C-K>'):
+            elif equal(cmd, '<C-K>') or equal(cmd, '<Up>'):
                 self._toUp()
                 self._previewResult(False)
-            elif equal(cmd, '<C-J>'):
+            elif equal(cmd, '<C-J>') or equal(cmd, '<Down>'):
                 self._toDown()
                 self._previewResult(False)
             elif equal(cmd, '<Up>'):
