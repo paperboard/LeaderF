@@ -756,7 +756,7 @@ class LfCli(object):
                         self._is_fuzzy = not self._is_fuzzy
                         self._buildPattern()
                         yield '<Mode>'
-                    elif equal(cmd, '<BS>') or equal(cmd, '<C-H>'):
+                    elif equal(cmd, '<BS>'):
                         if not self._pattern and self._refine == False:
                             continue
 

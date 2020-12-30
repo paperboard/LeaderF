@@ -133,7 +133,7 @@ function! leaderf#File#NormalModeFilter(winid, key) abort
         exec g:Lf_py "fileExplManager._getInstance().refreshPopupStatusline()"
     elseif key ==# "q" || key ==? "<ESC>"
         exec g:Lf_py "fileExplManager.quit()"
-    elseif key ==# "i" || key ==? "<Tab>"
+    elseif key ==# "i" || key ==? "<Tab>" || key ==? "<TAB>"
         call leaderf#ResetPopupOptions(a:winid, 'filter', 'leaderf#PopupFilter')
         exec g:Lf_py "fileExplManager.input()"
     elseif key ==# "o" || key ==? "<CR>" || key ==? "<2-LeftMouse>"
@@ -156,6 +156,13 @@ function! leaderf#File#NormalModeFilter(winid, key) abort
     elseif key ==? "<F1>"
         exec g:Lf_py "fileExplManager.toggleHelp()"
     elseif key ==? "<F5>"
+        exec g:Lf_py "fileExplManager.refresh()"
+    elseif key ==? "<C-H>"
+        if get(g:, 'Lf_ShowHidden') == '1'
+            let g:Lf_ShowHidden = 0
+        else
+            let g:Lf_ShowHidden = 1
+        endif
         exec g:Lf_py "fileExplManager.refresh()"
     elseif key ==? "<C-Up>"
         exec g:Lf_py "fileExplManager._toUpInPopup()"

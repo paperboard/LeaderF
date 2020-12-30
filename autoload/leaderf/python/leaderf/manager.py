@@ -2593,6 +2593,12 @@ class Manager(object):
                 break
             elif equal(cmd, '<F5>'):
                 self.refresh(False)
+            elif equal(cmd, '<C-H>'):
+                if lfEval("get(g:, 'Lf_ShowHidden')") == '1':
+                    lfCmd("let g:Lf_ShowHidden = 0")
+                else:
+                    lfCmd("let g:Lf_ShowHidden = 1")
+                self.refresh(False)
             elif equal(cmd, '<C-LeftMouse>') or equal(cmd, '<C-S>'):
                 if self._getExplorer().supportsMulti():
                     self.addSelections()
