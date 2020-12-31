@@ -35,8 +35,6 @@ function! leaderf#File#Maps()
     nnoremap <buffer> <silent> k             k:exec g:Lf_py "fileExplManager._previewResult(False)"<CR>
     nnoremap <buffer> <silent> <Up>          <Up>:exec g:Lf_py "fileExplManager._previewResult(False)"<CR>
     nnoremap <buffer> <silent> <Down>        <Down>:exec g:Lf_py "fileExplManager._previewResult(False)"<CR>
-    nnoremap <buffer> <silent> <PageUp>      <PageUp>:exec g:Lf_py "fileExplManager._previewResult(False)"<CR>
-    nnoremap <buffer> <silent> <PageDown>    <PageDown>:exec g:Lf_py "fileExplManager._previewResult(False)"<CR>
     if has("nvim")
         nnoremap <buffer> <silent> <C-Up>    :exec g:Lf_py "fileExplManager._toUpInPopup()"<CR>
         nnoremap <buffer> <silent> <C-Down>  :exec g:Lf_py "fileExplManager._toDownInPopup()"<CR>
@@ -76,16 +74,14 @@ function! leaderf#File#NormalModeFilter(winid, key) abort
         "redraw
         exec g:Lf_py "fileExplManager._getInstance().refreshPopupStatusline()"
         exec g:Lf_py "fileExplManager._previewResult(False)"
-    elseif key ==? "<PageUp>" || key ==? "<C-B>"
-        call win_execute(a:winid, "norm! \<PageUp>")
-        exec g:Lf_py "fileExplManager._cli._buildPopupPrompt()"
-        exec g:Lf_py "fileExplManager._getInstance().refreshPopupStatusline()"
-        exec g:Lf_py "fileExplManager._previewResult(False)"
-    elseif key ==? "<PageDown>" || key ==? "<C-F>"
-        call win_execute(a:winid, "norm! \<PageDown>")
-        exec g:Lf_py "fileExplManager._cli._buildPopupPrompt()"
-        exec g:Lf_py "fileExplManager._getInstance().refreshPopupStatusline()"
-        exec g:Lf_py "fileExplManager._previewResult(False)"
+    elseif key ==? "<PageUp>"
+        for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            exec g:Lf_py "fileExplManager._toUpInPopup()"
+        endfor
+    elseif key ==? "<PageDown>"
+        for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            exec g:Lf_py "fileExplManager._toDownInPopup()"
+        endfor
     elseif key ==# "g"
         if get(g:, "Lf_File_is_g_pressed", 0) == 0
             let g:Lf_File_is_g_pressed = 1

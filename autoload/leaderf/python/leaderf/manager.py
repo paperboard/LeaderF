@@ -2500,6 +2500,7 @@ class Manager(object):
                     if self._getInstance()._window_object.cursor[0] > 1:
                         lfCmd("call win_execute({}, 'norm! gg')".format(self._getInstance().getPopupWinId()))
                 self._search(cur_content)
+                self._previewResult(False)
             elif equal(cmd, '<Shorten>'):
                 if self._getInstance().isReverseOrder():
                     lfCmd("normal! G")
@@ -2507,6 +2508,7 @@ class Manager(object):
                     self._gotoFirstLine()
                 self._index = 0 # search from beginning
                 self._search(cur_content)
+                self._previewResult(False)
             elif equal(cmd, '<Mode>'):
                 self._setStlMode()
                 if self._getInstance().getWinPos() in ('popup', 'floatwin'):
