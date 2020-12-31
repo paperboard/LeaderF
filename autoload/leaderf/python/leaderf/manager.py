@@ -2543,35 +2543,8 @@ class Manager(object):
                         self._gotoFirstLine()
                     self._index = 0 # search from beginning
                     self._search(cur_content)
-            elif equal(cmd, '<LeftMouse>'):
-                if self._leftClick():
-                    break
-                self._previewResult(False)
-            elif equal(cmd, '<2-LeftMouse>'):
-                self._leftClick()
-                if self.accept() is None:
-                    break
             elif equal(cmd, '<CR>'):
                 if self.accept() is None:
-                    break
-            elif equal(cmd, '<C-X>'):
-                if self.accept('h') is None:
-                    break
-            elif equal(cmd, '<C-]>'):
-                if self.accept('v') is None:
-                    break
-            elif equal(cmd, '<C-T>'):
-                if self.accept('t') is None:
-                    break
-            elif equal(cmd, '<C-\>'):
-                actions = ['', 'h', 'v', 't', 'dr']
-                action_count = len(actions)
-                selection = int( vim.eval(
-                    'confirm("Action?", "&Edit\n&Split\n&Vsplit\n&Tabnew\n&Drop")' ) ) - 1
-                if selection < 0 or selection >= action_count:
-                    selection = 0
-                action = actions[selection]
-                if self.accept(action) is None:
                     break
             elif equal(cmd, '<Quit>'):
                 self._cli.writeHistory(self._getExplorer().getStlCategory())
@@ -2612,17 +2585,6 @@ class Manager(object):
                 else:
                     lfCmd("let g:Lf_ShowHidden = 1")
                 self.refresh(False)
-            elif equal(cmd, '<C-LeftMouse>') or equal(cmd, '<C-S>'):
-                if self._getExplorer().supportsMulti():
-                    self.addSelections()
-            elif equal(cmd, '<S-LeftMouse>'):
-                if self._getExplorer().supportsMulti():
-                    self.selectMulti()
-            elif equal(cmd, '<C-A>'):
-                if self._getExplorer().supportsMulti():
-                    self.selectAll()
-            elif equal(cmd, '<C-L>'):
-                self.clearSelections()
             elif equal(cmd, '<C-P>'):
                 self._ctrlp_pressed = True
                 self._previewResult(True)

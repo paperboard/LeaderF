@@ -742,8 +742,6 @@ class LfCli(object):
                             break
                     if equal(cmd, '<CR>'):
                         yield '<CR>'
-                    elif equal(cmd, '<2-LeftMouse>'):
-                        yield '<2-LeftMouse>'
                     elif equal(cmd, '<Esc>'):
                         yield '<Quit>'
                     elif equal(cmd, '<C-F>'):
@@ -773,46 +771,24 @@ class LfCli(object):
                             idle = 0
                             update = False
                             yield '<Shorten>'
-                    elif equal(cmd, '<C-U>'):
-                        if not self._pattern and self._refine == False:
-                            continue
-                        self._clearLeft()
-                        self._buildPattern()
-                        yield '<Shorten>'
-                    elif equal(cmd, '<C-W>'):
-                        if not self._pattern and self._refine == False:
-                            continue
-                        self._delLeftWord()
-                        self._buildPattern()
-                        yield '<Shorten>'
                     elif equal(cmd, '<Del>'):
                         if not self._pattern and self._refine == False:
                             continue
                         self._delete()
                         self._buildPattern()
                         yield '<Shorten>'
-                    elif equal(cmd, '<C-V>') or equal(cmd, '<S-Insert>'):
+                    elif equal(cmd, '<C-V>'):
                         self._paste()
                         self._buildPattern()
                         yield '<Update>'
-                    elif equal(cmd, '<Home>') or equal(cmd, '<C-B>'):
+                    elif equal(cmd, '<Home>'):
                         self._toBegin()
-                    elif equal(cmd, '<End>') or equal(cmd, '<C-E>'):
+                    elif equal(cmd, '<End>'):
                         self._toEnd()
                     elif equal(cmd, '<Left>'):
                         self._toLeft()
                     elif equal(cmd, '<Right>'):
                         self._toRight()
-                    elif equal(cmd, '<ScrollWheelUp>'):
-                        yield '<C-K>'
-                        yield '<C-K>'
-                        yield '<C-K>'
-                    elif equal(cmd, '<ScrollWheelDown>'):
-                        yield '<C-J>'
-                        yield '<C-J>'
-                        yield '<C-J>'
-                    elif equal(cmd, '<C-C>'):
-                        yield '<Quit>'
                     else:
                         yield cmd
         except KeyboardInterrupt: # <C-C>
