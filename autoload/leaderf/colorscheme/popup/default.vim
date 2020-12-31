@@ -23,7 +23,7 @@ if &background ==? 'dark'
     " Lf_hl_popup_blank is the wincolor of statusline window
     highlight def Lf_hl_popup_blank guifg=NONE guibg=#4b4e50 gui=NONE ctermbg=239 cterm=NONE
 
-    highlight def link Lf_hl_popup_cursor Cursor
+    highlight def Lf_hl_popup_cursor guifg=SpringGreen guibg=SpringGreen
     highlight def Lf_hl_popup_prompt guifg=#ffcd4a guibg=NONE gui=NONE ctermfg=221 ctermbg=NONE cterm=NONE
     highlight def Lf_hl_popup_spin guifg=#e6e666 guibg=NONE gui=NONE ctermfg=185 ctermbg=NONE cterm=NONE
     highlight def Lf_hl_popup_normalMode guifg=#333300 guibg=#c1ce96 gui=bold ctermfg=58 ctermbg=187 cterm=bold

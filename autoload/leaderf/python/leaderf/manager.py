@@ -483,6 +483,14 @@ class Manager(object):
                 if height < 1:
                     return
                 width = float_window.width
+            elif preview_pos.lower() == 'right':
+                anchor = "SW"
+                row = float_win_row - 1
+                col = float_win_col + float_window.width
+                height = row
+                if height < 1:
+                    return
+                width = float_window.width
             else:
                 anchor = "SW"
                 start = int(lfEval("line('w0')")) - 1
@@ -538,15 +546,12 @@ class Manager(object):
             else:
                 maxwidth = min(width, int(lfEval("&columns")))
 
-            if isinstance(source, int):
-                buffer_len = len(vim.buffers[source])
-            else:
+            if not isinstance(source, int):
                 try:
                     lfCmd("let content = readfile('%s')" % escQuote(source))
                 except vim.error as e:
                     lfPrintError(e)
                     return
-                buffer_len = int(lfEval("len(content)"))
 
             preview_pos = lfEval("get(g:, 'Lf_PopupPreviewPosition', 'top')")
             if preview_pos.lower() == 'bottom':
@@ -562,8 +567,6 @@ class Manager(object):
                 if maxheight < 1:
                     return
 
-                if buffer_len >= maxheight: # scrollbar appear
-                    maxwidth -= 1
             elif preview_pos.lower() == 'top':
                 maxwidth = int(popup_pos["width"])
                 col = int(popup_pos["col"])
@@ -572,11 +575,18 @@ class Manager(object):
                 if maxheight < 1:
                     return
 
-                if buffer_len >= maxheight: # scrollbar appear
-                    maxwidth -= 1
-
                 pos = "botleft"
                 line = maxheight + 1
+            elif preview_pos.lower() == 'right':
+                maxwidth = int(popup_pos["width"])
+                col = int(popup_pos["col"]) + maxwidth
+                # int(popup_pos["line"]) - 1(exclude the first line) - 1(input window) - 1(title)
+                maxheight = int(popup_pos["height"]) + 1
+                if maxheight < 1:
+                    return
+
+                pos = "topleft"
+                line = int(popup_pos["line"]) - 1
             else: # cursor
                 lfCmd("""call win_execute(%d, "let numberwidth = &numberwidth")""" % popup_window.id)
                 col = int(popup_pos["core_col"]) + int(lfEval("numberwidth")) + popup_window.cursor[1]
@@ -607,6 +617,7 @@ class Manager(object):
                     "borderchars":     [' '],
                     "borderhighlight": ["Lf_hl_previewTitle"],
                     "filter":          "leaderf#popupModePreviewFilter",
+                    "scrollbar":       0,
                     }
 
             if preview_pos.lower() == 'bottom':
@@ -2614,16 +2625,16 @@ class Manager(object):
                 self._ctrlp_pressed = True
                 self._previewResult(True)
                 self._ctrlp_pressed = False
-            elif equal(cmd, '<PageUp>'):
-                self._pageUp()
-                self._previewResult(False)
-            elif equal(cmd, '<PageDown>'):
-                self._pageDown()
-                self._previewResult(False)
-            elif equal(cmd, '<C-Up>'):
+            elif equal(cmd, '<C-PageUp>'):
                 self._toUpInPopup()
-            elif equal(cmd, '<C-Down>'):
+            elif equal(cmd, '<C-PageDown>'):
                 self._toDownInPopup()
+            elif equal(cmd, '<PageUp>'):
+                for x in range(10):
+                    self._toUpInPopup()
+            elif equal(cmd, '<PageDown>'):
+                for x in range(10):
+                    self._toDownInPopup()
             else:
                 if self._cmdExtension(cmd):
                     break

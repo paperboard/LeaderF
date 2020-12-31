@@ -384,7 +384,7 @@ class LfInstance(object):
             line = min(line, int(lfEval("&lines")) - maxheight)
 
         if col == 0:
-            col = (int(lfEval("&columns")) - maxwidth) // 2
+            col = (int(lfEval("&columns")) - maxwidth*2) // 2
         else:
             col = min(col, int(lfEval("&columns")) - maxwidth)
 
