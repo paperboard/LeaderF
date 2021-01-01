@@ -90,6 +90,36 @@ endfunction
 
 function! leaderf#Rg#Interactive()
     try
+        let scope = ""
+        let case = ""
+        let literal = ""
+
+        echohl Question
+        let inputarg = input("CurrentFile(f), Buffer(b), WorkingDirectory(Enter): ")
+        if inputarg ==? "f"
+            let scope = "--current-buffer"
+        elseif inputarg ==? "b"
+            let scope = "--all-buffers"
+        else
+            let scope = "--wd-mode ".g:Lf_WorkingDirectoryMode
+        endif
+
+        echohl Question
+        let inputarg = input("IgnoreCase(i), CaseSensitive(Enter): ")
+        if inputarg ==? "i"
+            let case = "--ignore-case"
+        else
+            let case = "--case-sensitive"
+        endif
+
+        echohl Question
+        let inputarg = input("Regexp(r), Literal(Enter): ")
+        if inputarg ==? "r"
+            let literal = ""
+        else
+            let literal = "--fixed-strings"
+        endif
+
         echohl Question
         let pattern = input("Search pattern: ")
         let pattern = escape(pattern,'"')
@@ -98,7 +128,7 @@ function! leaderf#Rg#Interactive()
             return
         endif
         let globList = map(split(glob, '[ ,]\+'), 'v:val =~ ''^".*"$'' ? v:val : ''"''.v:val.''"''')
-        exec printf("Leaderf rg %s\"%s\" -g %s", pattern =~ '^\s*$' ? '' : '-e ', pattern, join(globList, ' -g '))
+        exec printf("Leaderf rg %s %s\"%s\" -g %s %s %s --regexMode --nowrap", literal, pattern =~ '^\s*$' ? '' : '-e ', pattern, join(globList, ' -g '), scope, case)
     finally
         echohl None
     endtry
