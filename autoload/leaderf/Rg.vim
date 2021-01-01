@@ -128,7 +128,7 @@ function! leaderf#Rg#Interactive()
             return
         endif
         let globList = map(split(glob, '[ ,]\+'), 'v:val =~ ''^".*"$'' ? v:val : ''"''.v:val.''"''')
-        exec printf("Leaderf rg %s %s\"%s\" -g %s %s %s --regexMode --nowrap", literal, pattern =~ '^\s*$' ? '' : '-e ', pattern, join(globList, ' -g '), scope, case)
+        exec printf("Leaderf! rg --no-ignore-parent %s %s\"%s\" -g %s %s %s --regexMode --nowrap", literal, pattern =~ '^\s*$' ? '' : '-e ', pattern, join(globList, ' -g '), scope, case)
     finally
         echohl None
     endtry
