@@ -78,6 +78,9 @@ class FileExplorer(Explorer):
     def _getFiles(self, dir):
         start_time = time.time()
         wildignore = lfEval("g:Lf_WildIgnore")
+        if lfEval("g:Lf_ShowHidden") == '1':
+            wildignore = lfEval("{ 'dir': [], 'file': [] }")
+
         file_list = []
         for dir_path, dirs, files in os.walk(dir, followlinks = False
                 if lfEval("g:Lf_FollowLinks") == '0' else True):
@@ -342,6 +345,7 @@ class FileExplorer(Explorer):
             if lfEval("g:Lf_ShowHidden") == '0':
                 show_hidden = ""
             else:
+                ignore = ""
                 show_hidden = "--hidden"
 
             if "--no-ignore" in kwargs.get("arguments", {}):
@@ -445,6 +449,8 @@ class FileExplorer(Explorer):
             if lfEval("g:Lf_ShowHidden") == '0':
                 show_hidden = '-name ".*" -prune -o'
             else:
+                ignore_dir = ""
+                ignore_file = ""
                 show_hidden = ""
 
             if cd_cmd:
